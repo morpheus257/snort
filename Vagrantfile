@@ -16,16 +16,21 @@ SCRIPT
 #SCRIPT
 $script_software = <<-SCRIPT
 sudo apt-get install -y gcc libpcre3-dev zlib1g-dev libpcap-dev openssl libssl-dev libnghttp2-dev libdumbnet-dev bison flex libdnet nano
-
 SCRIPT
+
+
+
  config.vm.define "snort" do |snort|
   #snort.vm.box = "bento/centos-7.4"
   snort.vm.box = "ubuntu/xenial64"
   snort.vm.network "private_network" , ip:"192.168.0.101"
   snort.vm.hostname = "snort"
-  snort.vm.provision "shell" , inline: $script 
-  snort.vm.provision "shell" , inline: $script_software 
-  snort.vm.network "forwarded_port", guest: 80, host: 8080
+  snort.vm.provision "shell" , inline: $script
+  snort.vm.provision "shell" , inline: $script_software
+  snort.vm.provision "shell", path: "script.sh"
+  #snort.vm.provision "shell" , inline: $script_inst_daq
+  #snort.vm.provision "shell" , inline: $script_inst_snort
+  #snort.vm.network "forwarded_port", guest: 80, host: 8080
 end
 end
 
