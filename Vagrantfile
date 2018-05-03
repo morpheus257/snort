@@ -11,13 +11,10 @@ echo I am provisioning...
 date > /etc/vagrant_provisioned_at
 sudo apt-get update -y
 SCRIPT
-#$script_ansible = <<-SCRIPT
-#sudo yum -y install ansible nano
-#SCRIPT
+
 $script_software = <<-SCRIPT
 sudo apt-get install -y gcc libpcre3-dev zlib1g-dev libpcap-dev openssl libssl-dev libnghttp2-dev libdumbnet-dev bison flex libdnet nano
 SCRIPT
-
 
 
  config.vm.define "snort" do |snort|
@@ -27,9 +24,8 @@ SCRIPT
   snort.vm.hostname = "snort"
   snort.vm.provision "shell" , inline: $script
   snort.vm.provision "shell" , inline: $script_software
+  snort.vm.provision "file", source: "snort.conf", destination: "/tmp/snort.conf"
   snort.vm.provision "shell", path: "script.sh"
-  #snort.vm.provision "shell" , inline: $script_inst_daq
-  #snort.vm.provision "shell" , inline: $script_inst_snort
   #snort.vm.network "forwarded_port", guest: 80, host: 8080
 end
 end

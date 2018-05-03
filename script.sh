@@ -1,3 +1,5 @@
+#Sudo mode
+#sudo su
 #
 # Daq installation in /opt/ folder
 #
@@ -19,6 +21,9 @@ cd snort-2.9.11.1
 #
 sudo ldconfig
 sudo ln -s /usr/local/bin/snort /usr/sbin/snort
+#
+
+#
 sudo groupadd snort
 sudo useradd snort -r -s /sbin/nologin -c SNORT_IDS -g snort
 sudo mkdir -p /etc/snort/rules
@@ -38,6 +43,13 @@ sudo touch /etc/snort/rules/black_list.rules
 sudo touch /etc/snort/rules/local.rules
 sudo cp /opt/snort-2.9.11.1/etc/*.conf* /etc/snort
 sudo cp /opt/snort-2.9.11.1/etc/*.map /etc/snort
+# Delete preconfigured snort.conf file and move new modified file in snort folder
+# I do this now because snort.conf will need snort user's authorizations
+sudo rm -f /etc/snort/snort.conf
+cd /tmp/
+sudo mv -f snort.conf /etc/snort/snort.conf
+sudo chmod -R 5775 /etc/snort
+sudo chown -R snort:snort /etc/snort
 #
 # Download and install Snort Community rules
 #
@@ -54,3 +66,6 @@ sudo cp ~/community-rules/* /etc/snort/rules
 # If you need, uncomment the follow line.
 # 
 # sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.conf
+
+
+
