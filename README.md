@@ -29,7 +29,7 @@ ipvar HOME_NET <server public IP>/32
 # Set up the external network addresses. Leave as "any" in most situations
 ipvar EXTERNAL_NET !$HOME_NET
 #
-# Path to your rules files (this can be a relative path)  DONE
+# Path to your rules files (this can be a relative path)  --> DONE
 var RULE_PATH /etc/snort/rules
 var SO_RULE_PATH /etc/snort/so_rules
 var PREPROC_RULE_PATH /etc/snort/preproc_rules
@@ -52,4 +52,4 @@ If you are using the community rules, add the line underneath to your ruleset as
 #
 include $RULE_PATH/community.rules
 #
-Once you are done with the configuration file, save the changes and exit the editor. -->
+Once you are done with the configuration file, save the changes and exit the editor.
